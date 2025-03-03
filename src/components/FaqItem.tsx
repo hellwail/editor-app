@@ -116,7 +116,7 @@ export function FaqItem({
           onClick={() => onDelete(index)}
           title="Удалить вопрос"
         >
-          Delete
+          X
         </button>
       </div>
     </div>

@@ -11,13 +11,13 @@ const EditorToggle: React.FC<EditorToggleProps> = ({ activeEditor, onToggle }) =
   return (
     <div className="editor-toggle">
       <button 
-        className={`toggle-btn ${activeEditor === 'faq' ? 'active' : ''}`}
+        className={`btn ${activeEditor === 'faq' ? 'active' : ''}`}
         onClick={() => onToggle('faq')}
       >
         FAQ Editor
       </button>
       <button 
-        className={`toggle-btn ${activeEditor === 'userstory' ? 'active' : ''}`}
+        className={`btn ${activeEditor === 'userstory' ? 'active' : ''}`}
         onClick={() => onToggle('userstory')}
       >
         User Story

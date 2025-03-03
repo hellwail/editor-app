@@ -95,8 +95,8 @@ export function FAQ() {
   }
 
   return (
-    <div className="faq-editor">
-        <br />
+      <div className="faq-editor">
+        <h1 className='title'>FAQ Editor</h1>
       <div className="faq-list">
         {faqItems.map((item, index) => (
           <div 
@@ -121,7 +121,7 @@ export function FAQ() {
           </div>
         ))}
       </div>
-      <button onClick={addNewFaqItem} className="add-faq-button">
+      <button onClick={addNewFaqItem} className="btn add-btn">
         Добавить вопрос
       </button>
     </div>

@@ -16,13 +16,18 @@
   margin-bottom: 24px;
 }
 
+.title {
+  margin-bottom: 2rem;
+  margin-left: 2rem;
+}
+
 .faq-editor {
   width: 100%;
   min-height: 500px;
   position: relative;
 }
 
-.faq-editor h1 {
+/* .faq-editor h1 {
   margin-bottom: 2rem;
   font-size: 1.25rem;
   font-weight: 600;
@@ -31,7 +36,7 @@
   color: #000;
   border-bottom: 1px solid #000;
   padding-bottom: 0.5rem;
-}
+} */
 
 .faq-list {
   display: flex;
@@ -73,7 +78,7 @@
   float: left;
   height: 0;
   pointer-events: none;
-  font-style: italic;
+  /* font-style: italic; */
 }
 
 .add-faq-button {
@@ -165,30 +170,34 @@
   /* gap: 8px; */
 }
 
-.toggle-btn {
+.add-btn {
+  margin-left: 2rem;
+}
+
+.btn {
   padding: 8px 16px;
   border: 1px solid #e2e8f0;
   background: white;
-  color: #666;
-  border-radius: 4px;
+  /* color: #666; */
+  /* border-radius: 4px; */
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s;
 }
 
-.toggle-btn:hover {
+.btn:hover {
   background: #f8f9fa;
   color: #333;
 }
 
-.toggle-btn.active {
+.btn.active {
   background: #515355;
   color: white;
-  border-color: #515355;
+  /* border-color: #515355; */
 }
 
-.toggle-btn.active:hover {
+.btn.active:hover {
   background: #151616;
 }
 
