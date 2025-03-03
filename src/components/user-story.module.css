@@ -1,0 +1,76 @@
+.container {
+    /* max-width: 800px; */
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .container > div {
+    margin-bottom: 30px;
+  }
+  
+  .editorWrapper {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+  }
+  
+  .editor {
+    margin-bottom: 30px;
+    flex: 1;
+  }
+  
+  .editor:last-child {
+    margin-bottom: 0;
+  }
+  
+  .descriptionTitle {
+    font-size: 1.2em;
+  }
+
+  .bulletListButton {
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    padding: 4px 8px;
+    font-size: 1.2em;
+    margin-right: 4px;
+    margin-top: 2px;
+  }
+  
+  .bulletListButton:hover {
+    color: #333;
+  }
+  
+  .editor :global(.ProseMirror) {
+    outline: none;
+    min-height: 24px;
+  }
+  
+  .editor :global(.ProseMirror p.is-editor-empty:first-child::before) {
+    color: #adb5bd;
+    content: attr(data-placeholder);
+    float: left;
+    height: 0;
+    pointer-events: none;
+  }
+  
+  .editor :global(.ProseMirror ul) {
+    padding-left: 20px;
+    margin: 0;
+  }
+  
+  .addImplementation {
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    padding: 0;
+    font-size: inherit;
+  }
+  
+  .addImplementation:hover {
+    color: #333;
+  }
+  
+  

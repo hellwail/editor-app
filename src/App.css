@@ -1,0 +1,197 @@
+#root {
+  /* max-width: 800px; */
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.app {
+  margin: 20px auto;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  margin-bottom: 24px;
+}
+
+.faq-editor {
+  width: 100%;
+  min-height: 500px;
+  position: relative;
+}
+
+.faq-editor h1 {
+  margin-bottom: 2rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #000;
+  border-bottom: 1px solid #000;
+  padding-bottom: 0.5rem;
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.faq-item {
+  background: transparent;
+  position: relative;
+  display: flex;
+  gap: 1rem;
+}
+
+.faq-question {
+  margin-bottom: 0.75rem;
+}
+
+.faq-question .ProseMirror {
+  font-weight: 500;
+  font-size: 1.1rem;
+  color: #000;
+}
+
+.faq-answer .ProseMirror {
+  min-height: 60px;
+  color: #666;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.ProseMirror {
+  outline: none;
+}
+
+.ProseMirror p.is-editor-empty:first-child::before {
+  color: #999;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+  font-style: italic;
+}
+
+.add-faq-button {
+  width: auto;
+  padding: 0.5rem 1rem;
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  color: #666;
+  background: transparent;
+  border: 1px solid #999;
+  border-radius: 0;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.add-faq-button:hover {
+  background-color: #f8f8f8;
+  border-color: #666;
+  color: #000;
+}
+
+.delete-faq-button {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 4px 8px;
+  background: transparent;
+  color: #666;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 12px;
+  opacity: 0;
+  transition: opacity 0.2s;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.faq-item:hover .delete-faq-button {
+  opacity: 1;
+}
+
+.delete-faq-button:hover {
+  color: #000;
+}
+
+/* Добавляем новые стили */
+.faq-item-dragging {
+  opacity: 0.5;
+}
+
+.faq-list > div {
+  transition: border-color 0.2s;
+}
+
+/* Индикатор при перетаскивании */
+.faq-list > div[draggable="true"]:hover::before {
+  display: none;
+}
+
+.drag-handle {
+  color: #999;
+  cursor: move;
+  padding: 0.5rem;
+  opacity: 0;
+  transition: opacity 0.2s, color 0.2s;
+  display: flex;
+  align-items: center;
+  user-select: none;
+}
+
+.faq-item:hover .drag-handle {
+  opacity: 1;
+}
+
+.drag-handle:hover {
+  color: #666;
+}
+
+.faq-content {
+  border-bottom: 1px solid #e2e8f0;
+  flex: 1;
+}
+
+.editor-toggle {
+  display: flex;
+  /* gap: 8px; */
+}
+
+.toggle-btn {
+  padding: 8px 16px;
+  border: 1px solid #e2e8f0;
+  background: white;
+  color: #666;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.toggle-btn:hover {
+  background: #f8f9fa;
+  color: #333;
+}
+
+.toggle-btn.active {
+  background: #515355;
+  color: white;
+  border-color: #515355;
+}
+
+.toggle-btn.active:hover {
+  background: #151616;
+}
+
+.tiptap-editor .ProseMirror .placeholder {
+  font-size: 2.2em;
+}
