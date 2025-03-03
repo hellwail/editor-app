@@ -130,7 +130,7 @@ export default function UserStory() {
       </div>
 
       <div>
-        <h3>Критерии выполнения</h3>
+        <h3 className={styles.criteriaTitle}>Критерии выполнения</h3>
         <TiptapEditor
           placeholder="Перечень конкретных проверяемых критериев (условий), которые должны быть выполнены по результатам инкремента."
           content={storyData.criteria}
@@ -148,7 +148,7 @@ export default function UserStory() {
         }
         className={styles.addImplementation}
       >
-       <h4> {storyData.showImplementation ? "- Скрыть реализацию" : "+ Реализация"}</h4>
+       <h4 className={styles.realizationTitle}> {storyData.showImplementation ? "- Скрыть реализацию" : "+ Реализация"}</h4>
       </button>
 
       {storyData.showImplementation && (

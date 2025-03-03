@@ -25,6 +25,8 @@
   
   .descriptionTitle {
     font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 10px !important;
     /* margin-bottom: 0px; */
   }
 
@@ -41,6 +43,14 @@
   
   .bulletListButton:hover {
     color: #333;
+  }
+
+  .criteriaTitle {
+    margin-bottom: 10px;
+  }
+
+  .realizationTitle {
+    margin-bottom: 10px;
   }
   
   .editor :global(.ProseMirror) {
