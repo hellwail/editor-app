@@ -1,6 +1,6 @@
 import React from 'react'
 
-type EditorType = 'faq' | 'userstory'
+type EditorType = 'faq' | 'userstory' | 'resume'
 
 interface EditorToggleProps {
   activeEditor: EditorType
@@ -21,6 +21,12 @@ const EditorToggle: React.FC<EditorToggleProps> = ({ activeEditor, onToggle }) =
         onClick={() => onToggle('userstory')}
       >
         User Story
+      </button>
+      <button 
+        className={`btn ${activeEditor === 'resume' ? 'active' : ''}`}
+        onClick={() => onToggle('resume')}
+      >
+        Resume
       </button>
     </div>
   )

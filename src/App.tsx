@@ -1,16 +1,17 @@
 
-import { FAQ } from './components/FAQ'
+import { FAQ } from './components/FAQ/FAQ'
 import UserStoryEditor from './components/UserStory/UserStoryEditor'
 import EditorToggle from './components/EditorToggle'
 import './App.css'
 import { useState, useEffect } from 'react'
+import ResumeEditor from './components/Resume/ResumeEditor'
 
-type EditorType = 'faq' | 'userstory' 
+type EditorType = 'faq' | 'userstory'  | 'resume'
 
 
 function App() {
   const [activeEditor, setActiveEditor] = useState<EditorType>(() => {
-    return (localStorage.getItem('activeEditor') as EditorType) || 'faq'
+    return (localStorage.getItem('activeEditor') as EditorType) 
   })
 
   useEffect(() => {
@@ -26,8 +27,8 @@ function App() {
       />
     </div>
     {activeEditor === 'faq' ? <FAQ /> :
-     <UserStoryEditor /> 
-     }
+      activeEditor === 'userstory' ? <UserStoryEditor /> :
+    <ResumeEditor />}
   </div>
   )
 }

@@ -1,75 +1,8 @@
-"use client"
-
-import { useEditor, EditorContent } from "@tiptap/react"
-import StarterKit from "@tiptap/starter-kit"
-import Placeholder from "@tiptap/extension-placeholder"
-import { useState, useEffect } from "react"
+import { useEffect } from "react"
 import styles from "./user-story.module.css"
-
-const TiptapEditor = ({
-  placeholder,
-  content = "",
-  onUpdate,
-  isCriteria = false,
-}: {
-  placeholder: string
-  content?: string
-  onUpdate: (content: string) => void
-  isCriteria?: boolean
-}) => {
-  const editor = useEditor({
-    extensions: [
-      StarterKit.configure({
-        bulletList: {
-          keepMarks: true,
-          keepAttributes: false, // Важно для сохранения правильной структуры списка
-        },
-      }),
-      Placeholder.configure({
-        placeholder,
-      }),
-    ],
-    content,
-    onUpdate: ({ editor }) => {
-      onUpdate(editor.getHTML())
-    },
-    // onCreate: ({ editor }) => {
-    //   // Удалим автоматическое создание списка при инициализации
-    //   // if (isCriteria && !content) {
-    //   //   editor.commands.toggleBulletList()
-    //   // }
-    // },
-    editorProps: {
-      handleKeyDown: (view, event) => {
-        if (isCriteria) {
-          if (event.key === "Enter" && !editor?.isEmpty) {
-            event.preventDefault()
-            // Если мы не в списке, создаем его
-            if (!editor?.isActive("bulletList")) {
-              editor?.commands.toggleBulletList()
-            }
-            editor?.commands.splitListItem("listItem")
-            return true
-          }
-        }
-        return false
-      },
-    },
-  })
-
-  // Удалим этот useEffect, так как он больше не нужен
-  // useEffect(() => {
-  //   if (isCriteria && editor && !editor.isActive("bulletList")) {
-  //     editor.commands.toggleBulletList()
-  //   }
-  // }, [editor, isCriteria])
-
-  return (
-    <div className={styles.editorWrapper}>
-      <EditorContent editor={editor} className={styles.editor} />
-    </div>
-  )
-}
+import { BaseEditor } from "../BaseEditor"
+import { useEditor } from "../useEditor"
+import { useEditorNavigation } from "../UseEditorNavigation"
 
 type UserStoryData = {
   title: string
@@ -81,82 +14,85 @@ type UserStoryData = {
 }
 
 export default function UserStory() {
-  const [storyData, setStoryData] = useState<UserStoryData>(() => {
-    const saved = localStorage.getItem("userStory")
-    return saved
-      ? JSON.parse(saved)
-      : {
-          // title: "",
-          description: "",
-          descriptionTitle: "",
-          criteria: "", // Изменено с "<ul><li><p></p></li></ul>" на пустую строку
-          implementation: "",
-          showImplementation: false,
-        }
+  const {
+    data: storyData,
+    updateField,
+    setData,
+  } = useEditor<UserStoryData>({
+    title: "",
+    description: "",
+    descriptionTitle: "",
+    criteria: "",
+    implementation: "",
+    showImplementation: false,
   })
+
+  const { registerEditor, handleKeyDown } = useEditorNavigation()
+
+  useEffect(() => {
+    const saved = localStorage.getItem("userStory")
+    if (saved) {
+      setData(JSON.parse(saved))
+    }
+  }, [setData])
 
   useEffect(() => {
     localStorage.setItem("userStory", JSON.stringify(storyData))
   }, [storyData])
 
-  const updateField = (field: keyof UserStoryData) => (content: string) => {
-    setStoryData((prev) => ({
-      ...prev,
-      [field]: content,
-    }))
-  }
-
   return (
     <div className={styles.container}>
       <div>
-        <h1>Прототип шаблона</h1>
-        {/* <TiptapEditor placeholder="Введите заголовок..." content={storyData.title} onUpdate={updateField("title")} /> */}
+        <h1>Прототип шаблонов</h1>
       </div>
-
-        {/* <h3>Описание</h3> */}
-        <div className={styles.descriptionTitle}>
-        <TiptapEditor
-          placeholder="Описание"
+      <div className={styles.descriptionTitle}>
+        <BaseEditor
+          placeholder="Название инкремента, что получим по результатам"
           content={storyData.descriptionTitle}
           onUpdate={updateField("descriptionTitle")}
+          onKeyDown={handleKeyDown(0)}
+          ref={registerEditor(0)}
         />
-        </div>
-        <div>
-        <TiptapEditor
+      </div>
+      <div>
+        <BaseEditor
           placeholder="Описание кому предназначен инкремент. Зачем это ему нужно и что он сможет сделать с ним. Вкратце что будет собой представлять инкремент и как он будет выглядеть."
           content={storyData.description}
           onUpdate={updateField("description")}
+          onKeyDown={handleKeyDown(1)}
+          ref={registerEditor(1)}
         />
       </div>
 
       <div>
         <h3 className={styles.criteriaTitle}>Критерии выполнения</h3>
-        <TiptapEditor
+        <BaseEditor
           placeholder="Перечень конкретных проверяемых критериев (условий), которые должны быть выполнены по результатам инкремента."
           content={storyData.criteria}
           onUpdate={updateField("criteria")}
-          isCriteria={true}
+          isBulletList={true}
+          onKeyDown={handleKeyDown(2)}
+          ref={registerEditor(2)}
         />
       </div>
 
       <button
-        onClick={() =>
-          setStoryData((prev) => ({
-            ...prev,
-            showImplementation: !prev.showImplementation,
-          }))
-        }
+        onClick={() => setData((prev) => ({ ...prev, showImplementation: !prev.showImplementation }))}
         className={styles.addImplementation}
       >
-       <h4 className={styles.realizationTitle}> {storyData.showImplementation ? "- Скрыть реализацию" : "+ Реализация"}</h4>
+        <h4 className={styles.realizationTitle}>
+          {storyData.showImplementation ? "- Скрыть реализацию" : "+ Реализация"}
+        </h4>
       </button>
 
       {storyData.showImplementation && (
         <div>
-          <TiptapEditor
+          <BaseEditor
             placeholder="Описание подхода к решению, технически скрытых от пользователя деталей. Например, какие нужно использовать библиотеки, подход к архитектуре или хранению данных."
             content={storyData.implementation}
             onUpdate={updateField("implementation")}
+            onKeyDown={handleKeyDown(3)}
+            ref={registerEditor(3)}
           />
         </div>
       )}

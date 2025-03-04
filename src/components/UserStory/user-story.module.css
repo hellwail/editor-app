@@ -1,5 +1,4 @@
 .container {
-    /* max-width: 800px; */
     margin: 0 auto 0 1rem;
     padding: 20px;
   }
@@ -27,7 +26,6 @@
     font-size: 1.2em;
     font-weight: bold;
     margin-bottom: 10px !important;
-    /* margin-bottom: 0px; */
   }
 
   .bulletListButton {
